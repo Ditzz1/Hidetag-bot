@@ -1,13 +1,11 @@
 const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@adiwajshing/baileys');
 const P = require('pino');
 
-async function startBot() {
-    const { state, saveCreds } = await useMultiFileAuthState('./session');
-    const sock = makeWASocket({
-        auth: state,
-        logger: P({ level: 'silent' }), // Ubah menjadi 'debug' jika ingin melihat log lebih detail
-        printQRInTerminal: true,
-    });
+const sock = makeWASocket({
+    auth: state,
+    logger: P({ level: 'silent' }), // Ubah ke 'debug' jika ingin melihat log detail
+    printQRInTerminal: true,        // QR code akan muncul di terminal
+});
 
     // Handle koneksi
     sock.ev.on('connection.update', (update) => {
